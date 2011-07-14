@@ -19,3 +19,21 @@
 ;; Nth element: Write a function which returns the Nth element from a sequence.
 (defn nth-elem [s x]
   (last (take (inc x) s)))
+
+;; Count a Sequence: Write a function which returns the total number of elements in a sequence.
+(defn count-a-seq [lat]
+  (letfn [(return-one [x] 1)
+          (sum-ones [x y] (+ x (return-one y)))]
+    (reduce sum-ones 0 lat)))
+
+;; Sum It All Up: Write a function which returns the sum of a sequence of numbers.
+(defn sum-it-al [lat]
+  (reduce + lat))
+
+;; Find the odd numbers: Write a function which returns only the odd numbers from a sequence.
+(defn odd-numbers [lat]
+  (filter odd? lat))
+
+;; Reverse a Sequence: Write a function which reverses a sequence.
+(defn rev-seq [lat]
+  (into '() lat))
