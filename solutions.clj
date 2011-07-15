@@ -88,7 +88,20 @@
 ;; Interleave Two Seqs: Write a function that takes 2 seqs and returns the 1st item from both, 2nd, etc.
 (defn interleave [a b]
   (letfn [(iter [a b]
-    (let [[x & xs] a
-          [y & ys] b]
-      (cons x (cons y (lazy-seq (iter xs ys))))))]
+            (let [[x & xs] a
+                  [y & ys] b]
+              (cons x (cons y (lazy-seq (iter xs ys))))))]
     (take (* 2 (min (count a) (count b))) (iter a b))))
+
+;; Pack: Write a function which packs consecutive duplicates into sub-lists.
+(defn pack [n]
+  (partition-by identity n))
+
+;; Interpose a Seq: Write a function which separates the items of a sequence by an arbitrary value.
+(defn inter [a lat]
+  (letfn [(iter [a lat]
+            (let [[x & xs] lat]
+              (if (empty? xs) (list x)
+                  (cons x (cons a (iter a xs))))))]
+    (iter a lat)))
+                
