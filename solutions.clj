@@ -93,15 +93,37 @@
               (cons x (cons y (lazy-seq (iter xs ys))))))]
     (take (* 2 (min (count a) (count b))) (iter a b))))
 
+;; Interpose a Seq: Write a function which separates the items of a sequence by an arbitrary value.
+(defn inter [a lat]
+  (let [[x & xs] lat]
+    (if (empty? xs) (list x)
+        (cons x (cons a (iter a xs))))))
+
 ;; Pack: Write a function which packs consecutive duplicates into sub-lists.
 (defn pack [n]
   (partition-by identity n))
 
-;; Interpose a Seq: Write a function which separates the items of a sequence by an arbitrary value.
-(defn inter [a lat]
-  (letfn [(iter [a lat]
-            (let [[x & xs] lat]
-              (if (empty? xs) (list x)
-                  (cons x (cons a (iter a xs))))))]
-    (iter a lat)))
-                
+;; Drop Every Nth Item: Write a function which drops every Nth item from a sequence.
+(defn drop-nth [lat n]
+  (flatten (map #(if (= (count %) n) (drop-last %) %) (partition-all n lat))))
+
+;; Flipping Out: Write a higher-order function which flips the order of the arguments of an input function.
+(defn flip-out [f]
+  (fn [& args] (apply f (reverse args))))
+
+;; Split a Sequence: Write a function which will split a sequence into two parts.
+(defn split-a-seq [n lat]
+  (cons (take n lat) (cons (drop n lat) '())))
+
+;; Rotate a Sequence: Write a function which can rotate a sequence in either direction.
+(defn rotate-a-seq [n lat]
+  (let [x (count lat)
+        a (if (neg? n) (reverse (take (mod (* n -1) x) (reverse lat)))
+              (drop (mod n x) lat))
+        b (if (neg? n) (take (mod (+ x n) x) lat)
+              (take (mod n x) lat))]
+    (concat a b)))
+
+;; Reverse Interleave: Write a function which reverses the interleave process into x number of subsequences.
+(defn rev-inter [lat n]
+  (partition (quote (count lat) n) (apply interleave (partition n lat))))
