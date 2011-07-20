@@ -127,3 +127,35 @@
 ;; Reverse Interleave: Write a function which reverses the interleave process into x number of subsequences.
 (defn rev-inter [lat n]
   (partition (quote (count lat) n) (apply interleave (partition n lat))))
+
+;; Count Occurences
+(defn count-occurences [coll]
+  (reduce #(assoc %1 %2 (inc (%1 %2 0))) {} col))
+
+;; Map Construction: Write a function which takes vector of keys and values and constructs a map from them.
+(defn map-con [a b]
+  (apply hash-map (interleave a b)))
+
+;; Greatest Common Divisor: Given 2 ints write a function which returns gcd
+(defn gcd [a b]
+  (if (= b 0) a
+      (recur b (rem a b))))
+
+;; Partition a Sequence: Write a function which returns a sequence of lists of x items each. Lists of less than x items should not be returned.
+(defn partition-seq [n coll]
+  (loop [coll coll
+         held []]
+    (if (or (empty? coll) (< (count coll) n)) held
+        (recur (drop n coll) (conj held (take n coll))))))
+
+;; Half Truth: Write a function which takes a variable num of bools. It should return true only if some of the params are true.
+(defn half-truth [& more]
+  (let [expr (and (some true? more) (some false? more))]
+    (true? expr)))
+
+;; Least Common Multiple: Write a function which calculates lcm.
+(defn lcm [& xs]
+  (letfn [(gcd [a b]
+            (if (= b 0) a
+                (recur b (rem a b))))]
+    (reduce #(/ (* %1 %2) (gcd %1 %2)) more)))
