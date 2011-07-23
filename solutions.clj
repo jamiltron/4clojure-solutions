@@ -159,3 +159,8 @@
             (if (= b 0) a
                 (recur b (rem a b))))]
     (reduce #(/ (* %1 %2) (gcd %1 %2)) more)))
+
+;; Group a Sequence: Given a function f and a sequence s, write a function which returns a map. The keys should be the values of f applied to each item in s.
+;;                   The value at each key should be a vector of corresponding items in the order they appear in s.
+(defn group-seq [f col]
+  (reduce #(assoc %1 (f %2) (conj (apply vector (%1 (f %2))) %2)) {} col))
