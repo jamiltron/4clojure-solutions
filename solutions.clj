@@ -164,3 +164,12 @@
 ;;                   The value at each key should be a vector of corresponding items in the order they appear in s.
 (defn group-seq [f col]
   (reduce #(assoc %1 (f %2) (conj (apply vector (%1 (f %2))) %2)) {} col))
+
+;; To Tree, or not to Tree: Write a predicate which checks whether or not a given sequence represents a binary tree. Each node in the tree must have a value, a left child, and a right child.
+(defn is-binary? [tree]
+  (cond
+   (false? tree) false
+   (not (coll? tree)) true
+   (not= (count tree) 3) false
+   :else (and (is-binary? (second tree)) (is-binary? (nth tree 2)))))
+    
