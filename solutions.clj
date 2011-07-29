@@ -165,6 +165,11 @@
 (defn group-seq [f col]
   (reduce #(assoc %1 (f %2) (conj (apply vector (%1 (f %2))) %2)) {} col))
 
+;; Find Distinct Items: Write a function which removes the duplicates from a sequence. Order of the items must be maintained.
+(defn distinct-items [items]
+  (reduce (fn [x y] (if (nil? (some (fn [z] (= y z)) x)) (conj x y)
+                        x)) [] items))
+
 ;; To Tree, or not to Tree: Write a predicate which checks whether or not a given sequence represents a binary tree. Each node in the tree must have a value, a left child, and a right child.
 (defn is-binary? [tree]
   (cond
