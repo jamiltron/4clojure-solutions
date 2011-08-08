@@ -24,9 +24,7 @@
 
 ;; Count a Sequence: Write a function which returns the total number of elements in a sequence.
 (defn count-a-seq [lat]
-  (letfn [(return-one [x] 1)
-          (sum-ones [x y] (+ x (return-one y)))]
-    (reduce sum-ones 0 lat)))
+  (reduce (fn [x y] (+ x 1)) 0 lat))
 
 ;; Sum It All Up: Write a function which returns the sum of a sequence of numbers.
 (defn sum-it-al [lat]
