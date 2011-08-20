@@ -183,4 +183,8 @@
    (not (coll? tree)) true
    (not= (count tree) 3) false
    :else (and (is-binary? (second tree)) (is-binary? (nth tree 2)))))
-    
+
+;; Juxtaposition: Take a set of functions and return a new function that takes a variable number of arguments and returns a sequence containing the result of applying each function left-to-right to the argument list.
+(defn new-juxt [& fs]
+  (fn [& xs]
+    (reduce #(conj %1 (apply %2 xs)) [] fs)))
