@@ -198,3 +198,9 @@
         a-sub (clojure.set/difference a dis)
         b-sub (clojure.set/difference b dis)]
     (clojure.set/union a-sub b-sub)))
+
+;; Product Digits: Write a function which multiples 2 numbers and returns the results as a sequence
+(defn prod-dig [a b]
+  (let [prod (* a b)
+        len (count (str prod))]
+    (map #(rem % 10) (reverse (take len (iterate #(quot % 10) prod))))))
