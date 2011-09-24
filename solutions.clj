@@ -2,6 +2,9 @@
 ;; Justin Hamilton
 ;; This only contains problems that require an actual function
 
+;; imports
+(use 'clojure.set)
+
 ;; Double Down: Write a function which doubles a number.
 (defn double-down [x]
   (* x 2))
@@ -188,3 +191,10 @@
 (defn new-juxt [& fs]
   (fn [& xs]
     (reduce #(conj %1 (apply %2 xs)) [] fs)))
+
+;; Symmetric Difference: Write a function that returns the symmetric difference of two sets.
+(defn sym-diff [a b]
+  (let [dis (clojure.set/intersection a b)
+        a-sub (clojure.set/difference a dis)
+        b-sub (clojure.set/difference b dis)]
+    (clojure.set/union a-sub b-sub)))
