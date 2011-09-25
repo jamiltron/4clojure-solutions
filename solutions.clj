@@ -204,3 +204,7 @@
   (let [prod (* a b)
         len (count (str prod))]
     (map #(rem % 10) (reverse (take len (iterate #(quot % 10) prod))))))
+
+;; Cartesian Product: Write a func that calcs the Cartesian product of 2 sets
+(defn cartesian-product [x y]
+  (set (for [a x b y] [a b])))
