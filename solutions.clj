@@ -208,3 +208,11 @@
 ;; Cartesian Product: Write a func that calcs the Cartesian product of 2 sets
 (defn cartesian-product [x y]
   (set (for [a x b y] [a b])))
+
+;; Set Intersection: Write a function that returns the intersection of 2 sets
+(defn set-intersection [x y]
+  (let [x-sub-y (clojure.set/difference x y)
+        y-sub-x (clojure.set/difference y x)
+        full-diff (clojure.set/union x-sub-y y-sub-x)
+        full-set (clojure.set/union x y)]
+    (clojure.set/difference full-set full-diff)))
