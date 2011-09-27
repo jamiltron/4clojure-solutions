@@ -218,5 +218,5 @@
     (clojure.set/difference full-set full-diff)))
 
 ;; Simple closures: Given an integer n return a function (f x) which computes x ^ n.
-(fn simple-closure [x]
+(defn simple-closure [x]
   (fn [y] (reduce * (take x (repeat y)))))
