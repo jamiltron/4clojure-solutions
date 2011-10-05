@@ -220,3 +220,10 @@
 ;; Simple closures: Given an integer n return a function (f x) which computes x ^ n.
 (defn simple-closure [x]
   (fn [y] (reduce * (take x (repeat y)))))
+
+;; To Tree, or not to Tree: Write a predicate which checks for a binary tree
+(defn binary-tree [tree]
+  (cond
+   (nil? tree) true
+   (or (false? tree) (empty? tree) (not= (count tree) 3)) false
+   :else (and (is-binary? (second tree)) (is-binary? (nth tree 2)))))
