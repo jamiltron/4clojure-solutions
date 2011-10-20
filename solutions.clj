@@ -236,3 +236,7 @@
                (cons (f (first col)) (re-map f (rest col))))
       nil))
 
+;; Re-implement iterate
+(defn new-iterate [f x]
+  (lazy-seq
+   (cons x (new-iterate f (f x)))))
