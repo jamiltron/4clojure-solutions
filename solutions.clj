@@ -221,9 +221,18 @@
 (defn simple-closure [x]
   (fn [y] (reduce * (take x (repeat y)))))
 
-;; To Tree, or not to Tree: Write a predicate which checks for a binary tree
-(defn binary-tree [tree]
-  (cond
-   (nil? tree) true
-   (or (false? tree) (empty? tree) (not= (count tree) 3)) false
-   :else (and (is-binary? (second tree)) (is-binary? (nth tree 2)))))
+;; Read a binary number: Convert a binary number, provided in a string
+(defn read-binary [bin]
+  (letfn [(my exp [x y]
+            (reduce * (repeat y x)))
+          (to-num [idx ch]
+            (if (= ch \1) (my-exp 2 idx)
+                0))]            
+    (reduce + (map-indexed to-num (reverse bin)))))
+
+;; Re-implement map producing a lazy-seq
+(defn re-map [f col]
+  (if (seq col) (lazy-seq
+               (cons (f (first col)) (re-map f (rest col))))
+      nil))
+
