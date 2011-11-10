@@ -240,3 +240,8 @@
 (defn new-iterate [f x]
   (lazy-seq
    (cons x (new-iterate f (f x)))))
+
+;; Find if a map contains a key whose value is nil
+(defn key-finder [k m]
+  (and (not (nil? (some #(= k %) (keys m)))) 
+       (nil? (k m))))
