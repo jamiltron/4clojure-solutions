@@ -4,6 +4,7 @@
 
 ;; imports
 (use 'clojure.set)
+(use 'clojure.contrib.math)
 
 ;; Double Down: Write a function which doubles a number.
 (defn double-down [x]
@@ -245,3 +246,24 @@
 (defn key-finder [k m]
   (and (not (nil? (some #(= k %) (keys m)))) 
        (nil? (k m))))
+
+;; Infix calculator
+(defn simple-calc [& args]
+  (if (= (count args) 1) (first args)
+      (let [[x op y & col] args]
+        (recur (cons (op x y) col)))))
+
+;; 67. Prime Numbers
+(defn first-n-primes [n]
+  (letfn [(is-prime [x]
+            (letfn [(prime-iter [i num root]
+                      (cond
+                       (> i root) true
+                       (= 0 (rem num i)) false
+                       :else (recur (inc i) num root)))]
+              (prime-iter 2 x (clojure.contrib.math/sqrt x))))
+          (next-prime [x]
+            (if (is-prime? (inc x)) (inc x)
+                (recur (inc x))))]
+    (take n (iterate next-prime 2))))
+                    
