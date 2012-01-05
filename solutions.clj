@@ -266,4 +266,10 @@
             (if (is-prime? (inc x)) (inc x)
                 (recur (inc x))))]
     (take n (iterate next-prime 2))))
+
+;; 143: Compute the cross-product of 2 3-d vectors
+(defn cross-prod [v1 v2]
+  (let [[x1 y1 z1] v1
+        [x2 y2 z2] v2]
+    (+ (* x1 x2) (* y1 y2) (* z1 z2))))
                     
