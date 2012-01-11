@@ -272,4 +272,20 @@
   (let [[x1 y1 z1] v1
         [x2 y2 z2] v2]
     (+ (* x1 x2) (* y1 y2) (* z1 z2))))
+
+;; 120: Sum of square of digits (www.4clojure.com/problem/120)
+(defn sos-o-digits [num]
+  (letfn [(num->digits [num]
+            (letfn [(numiter [val col]
+                      (if (>= 0 val) col
+                          (recur (quot val 10)
+                                 (conj (apply list col) (rem val 10)))))]
+              (numiter num [])))                    
+          (sum-of-square [digits]
+            (reduce + (map #(* % %) digits)))
+          (less-than-sos? [num]
+              (let [digits (num->digits num)
+                    sos (sum-of-square digits)]
+                (< num sos)))]
+    (count (filter less-than-sos? num))))
                     
