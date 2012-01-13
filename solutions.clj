@@ -288,4 +288,42 @@
                     sos (sum-of-square digits)]
                 (< num sos)))]
     (count (filter less-than-sos? num))))
-                    
+
+;; 74: Filter Perfect Squares
+(defn filter-ps [x]
+  (letfn [(string->int-seq [nums]
+            (map read-string (clojure.string/split nums #",")))
+          (perfect-square? [x]
+            (if (= 0 (count (for [n (range (inc (Math/sqrt x)))
+                                  :when (= (* n n) x)] x))) false
+                true))]
+  (apply str 
+    (interpose "," 
+      (map str 
+           (filter perfect-square? (string->int-seq x)))))))
+
+
+;; 147: Pascal's Trapezoid
+(defn pascal-trapezoid [row]
+  (letfn [(two-map [f col]
+            (cond
+              (or (empty? col) (empty? (rest col))) []
+              :else (cons (f (first col) (second col))
+                             (lazy-seq (two-map f (rest col))))))
+          (next-row [row]
+            (conj (vec (cons (first row) (two-map + row))) (last row)))]
+    (cons row (lazy-seq (pascal-trapezoid (next-row row))))))
+
+
+;; 58: Function Composition
+(defn my-comp [f & r]
+  (fn [& x]
+    (letfn [(comp-maker [r]
+              (cond
+               (empty? r) x
+               (empty? (rest r)) (apply (first r) x)
+               :else ((first r) (comp-maker (rest r)))))]
+      (f (comp-maker r)))))
+
+
+
