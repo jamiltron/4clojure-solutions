@@ -326,4 +326,16 @@
       (f (comp-maker r)))))
 
 
-
+;; 80: Perfect Numbers
+(fn perfect-num? [n]
+  (let [root (Math/sqrt n)]
+    (letfn [(find-divisors [i divs]
+              (cond
+                (> i root) divs
+                (or
+                  (some #(= i %) divs)
+                  (not= 0 (rem n i))) (recur (inc i) divs)
+                :else (recur (inc i)
+                              (if (not= i (quot n i)) (conj divs i (quot n i))
+                                  (conj divs i)))))]
+      (= (reduce + (find-divisors 2 [1])) n))))                                                                   
