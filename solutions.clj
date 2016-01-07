@@ -53,7 +53,7 @@
 
 ;; Get the Caps: Write a function which takes a string and returns a new string containing only the capital letters.
 (defn get-caps [s]
-  (apply str (map char (filter #(and (<= 65 %) (<= % 90)) (map int n)))))
+  (apply str (map char (filter #(and (<= 65 %) (<= % 90)) (map int s)))))
 
 ;; Maximum Value: Write a function which takes a variable number of parameters and returns the maximum value.
 (defn max-val [x & xs]
