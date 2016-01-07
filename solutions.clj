@@ -131,7 +131,7 @@
   (partition (quote (count lat) n) (apply interleave (partition n lat))))
 
 ;; Count Occurences
-(defn count-occurences [coll]
+(defn count-occurences [col]
   (reduce #(assoc %1 %2 (inc (%1 %2 0))) {} col))
 
 ;; Map Construction: Write a function which takes vector of keys and values and constructs a map from them.
