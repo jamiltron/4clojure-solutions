@@ -49,7 +49,8 @@
 
 ;; Fibonacci Sequence
 (defn fib [n]
-  (take n ((fn fib-recur [a b]) (cons a (lazy-seq (fib-recur b (+ a b)))) 1 1)))
+  (take n ((fn fib-recur [a b] 
+               (cons a (lazy-seq (fib-recur b (+ a b))))) 1 1)))
 
 ;; Get the Caps: Write a function which takes a string and returns a new string containing only the capital letters.
 (defn get-caps [s]
